@@ -56,11 +56,13 @@ const processedContent = document.toString();
     </span>
   </h2>
   <!-- post.categories -->
-  <div
-    class={"post-content  overflow-x-auto bg-white px-3 py-5 " +
-      (isPost ? " " : "max-h-[calc(100vh-140px)]")}
-    set:html={processedContent}
-  />
+  <div class="x rounded-md overflow-hidden">
+    <div
+      class={"post-content  overflow-x-auto bg-white px-3 py-5 " +
+        (isPost ? " " : "max-h-[calc(100vh-140px)]")}
+      set:html={processedContent}
+    />
+  </div>
   <!-- <div class="flex justify-center gap-2 mt-4">
     {post.tags.map((tag) => <span class="px-1 bg-slate-300"> {tag}</span>)}
   </div> -->

@@ -15,33 +15,78 @@ export interface Props {
 }
 
 const { posts, currentPage, totalPages } = Astro.props;
+
+const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(
+  Math.max(0, currentPage - 3),
+  Math.min(totalPages, currentPage + 2)
+);
 ---
 
 <main>
   <div class="max-w-[70ch] mx-auto justify-center px-4 pt-6">
+    <nav class="x flex justify-between mb-4">
+      {
+        currentPage > 1 && (
+          <a class=" px-3 py-1  bg-white " href={`/feed/${currentPage - 1}`}>
+            Previous
+          </a>
+        )
+      }
+      {
+        currentPage < totalPages && (
+          <a class="px-3 py-1 bg-white " href={`/feed/${currentPage + 1}`}>
+            more
+          </a>
+        )
+      }
+    </nav>
     {posts.map((post) => <BlogPost post={post} />)}
-  </div>
+    <nav
+      class="bottom-2 mx-auto flex gap-3 mt-4 mb-8"
+      aria-label="Pagination navigation"
+    >
+      {
+        currentPage > 1 && (
+          <a class=" px-3 py-1  bg-white " href={`/feed/${currentPage - 1}`}>
+            Previous
+          </a>
+        )
+      }
 
-  <nav class="sticky bottom-2 mx-auto flex max-w-[780px] gap-3 mt-4 mb-8">
-    {
-      currentPage > 1 && (
-        <a
-          class=" px-3 py-1  bg-white font-semibold shadow-xl"
-          href={`/feed/${currentPage - 1}`}
-        >
-          Previous
-        </a>
-      )
-    }
-    {
-      currentPage < totalPages && (
-        <a
-          class="ml-auto px-3 py-1  bg-white font-semibold shadow-xl"
-          href={`/feed/${currentPage + 1}`}
-        >
-          Next
-        </a>
-      )
-    }
-  </nav>
+      <span class="mx-auto flex">
+        {
+          pageNumbers.map((pageNum) => (
+            <a
+              class={`px-4 py-1 rounded ${
+                pageNum === currentPage
+                  ? " bg-white text-black"
+                  : "hover:bg-slate-200"
+              }`}
+              href={`/feed/${pageNum}`}
+            >
+              {pageNum}
+            </a>
+          ))
+        }
+      </span>
+      {
+        currentPage < totalPages && (
+          <a class="px-3 py-1 bg-white " href={`/feed/${currentPage + 1}`}>
+            more
+          </a>
+        )
+      }
+    </nav>
+  </div>
 </main>
+
+<style>
+  a,
+  button {
+    border-radius: 0.3rem;
+    padding: 0.25rem 0.75rem;
+    &:hover {
+      background: var(--color-slate-200);
+    }
+  }
+</style>

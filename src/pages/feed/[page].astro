@@ -4,28 +4,28 @@ import { getPosts } from "../../lib/posts";
 import Feed from "../../components/Feed.astro";
 
 export async function getStaticPaths() {
-    const posts = getPosts();
-    const postsPerPage = 10;
-    const totalPages = Math.ceil(posts.length / postsPerPage);
+  const postsPerPage = 8;
+  const posts = getPosts();
+  const totalPages = Math.ceil(posts.length / postsPerPage);
 
-    const paths = Array.from({ length: totalPages }, (_, i) => {
-        const page = i + 1;
-        const startIndex = i * postsPerPage;
-        const endIndex = startIndex + postsPerPage;
-        const pagePosts = posts.slice(startIndex, endIndex);
+  const paths = Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1;
+    const startIndex = i * postsPerPage;
+    const endIndex = startIndex + postsPerPage;
+    const pagePosts = posts.slice(startIndex, endIndex);
 
-        return {
-            params: { page: String(page) },
-            props: { posts: pagePosts, currentPage: page, totalPages },
-        };
-    });
+    return {
+      params: { page: String(page) },
+      props: { posts: pagePosts, currentPage: page, totalPages },
+    };
+  });
 
-    return paths;
+  return paths;
 }
 
 const { posts, currentPage, totalPages } = Astro.props;
 ---
 
 <PageComp>
-    <Feed posts={posts} currentPage={currentPage} totalPages={totalPages} />
+  <Feed posts={posts} currentPage={currentPage} totalPages={totalPages} />
 </PageComp>
