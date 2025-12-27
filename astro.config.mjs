@@ -8,6 +8,10 @@ export default defineConfig({
   site: 'https://britnell.github.io',
   base: '/whims',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    assetsInclude: ['**/*.xml']
+  },
+  build: {
+    assets: 'chunks'
   }
 });
