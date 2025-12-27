@@ -1,0 +1,19 @@
+---
+import Page from "../components/Page.astro";
+import { getPosts } from "../lib/posts";
+
+const allPosts = getPosts();
+---
+
+<Page>
+    <h1>All Posts</h1>
+    <ul>
+        {
+            allPosts.map((post) => (
+                <li>
+                    <a href={`/post/${post.slug}`}>{post.title}</a>
+                </li>
+            ))
+        }
+    </ul>
+</Page>

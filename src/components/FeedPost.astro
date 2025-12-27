@@ -1,0 +1,55 @@
+---
+import { parseHTML } from "linkedom";
+import { embedYoutubeVideos } from "../lib/content";
+
+export interface Props {
+  post: {
+    slug: string;
+    title: string;
+    date: Date;
+    categories: string[];
+    tags: string[];
+    content: string;
+  };
+}
+
+const { post } = Astro.props;
+
+const { document } = parseHTML(post.content);
+
+document.querySelectorAll("img").forEach((img: any) => {
+  const src = img.getAttribute("src");
+  img.classList.add("post-img");
+  if (src?.includes("/uploads/")) {
+    const newPath = "/img/" + src.split("/uploads/")[1];
+    img.setAttribute("src", newPath);
+  }
+});
+
+embedYoutubeVideos(document);
+
+const processedContent = document.toString();
+---
+
+<article class="p-4 bg-white">
+  <h2 class="text-2xl font-bold hover:underline">
+    <a href={`/post/${post.slug}`}>{post.title}</a>
+  </h2>
+  <p class="text-right text-gray-700">
+    {post.date.toDateString()}
+  </p>
+  <!-- post.categories -->
+  <div
+    class="post-content max-h-[70vh] overflow-x-auto"
+    set:html={processedContent}
+  />
+  <!-- <div class="flex justify-center gap-2 mt-4">
+    {post.tags.map((tag) => <span class="px-1 bg-slate-300"> {tag}</span>)}
+  </div> -->
+</article>
+
+<style>
+  .post-img {
+    width: 50%;
+  }
+</style>

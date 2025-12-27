@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+body {
+    font-family: system-ui;
+}
+
+.post-img {
+    max-height: 45vh;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.post-content {
+    & a:not(:has(> *)) {
+        text-decoration: underline;
+    }
+}

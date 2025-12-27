@@ -1,0 +1,2 @@
+- post grid list
+- render post comp for reuse on [post] page

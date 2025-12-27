@@ -1,0 +1,43 @@
+---
+import Page from "../../components/Page.astro";
+import { getPostBySlug, getPosts } from "../../lib/posts";
+
+export async function getStaticPaths() {
+    const posts = getPosts();
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+const { slug } = Astro.params;
+const post = getPostBySlug(slug);
+
+if (!post) {
+    return Astro.redirect("/404");
+}
+---
+
+<Page>
+    <h1>{post.title}</h1>
+    <p>
+        <small>{post.date.toDateString()}</small>
+    </p>
+    {
+        post.categories.length > 0 && (
+            <p>
+                <strong>Categories:</strong> {post.categories.join(", ")}
+            </p>
+        )
+    }
+    {
+        post.tags.length > 0 && (
+            <p>
+                <strong>Tags:</strong> {post.tags.join(", ")}
+            </p>
+        )
+    }
+    <hr />
+    CONTENT
+    <div class="post-content" set:html={post.content} />
+</Page>

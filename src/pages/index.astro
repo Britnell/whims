@@ -1,0 +1,14 @@
+---
+import Page from "../components/Page.astro";
+import { getPosts } from "../lib/posts";
+import Feed from "../components/Feed.astro";
+
+const allPosts = getPosts();
+const posts = allPosts.slice(0, 10);
+const totalPages = Math.ceil(allPosts.length / 10);
+---
+
+<Page>
+  <h1>Wondays whims - Blog</h1>
+  <Feed posts={posts} currentPage={1} totalPages={totalPages} />
+</Page>
