@@ -24,7 +24,7 @@ document.querySelectorAll("img").forEach((img: any) => {
   const src = img.getAttribute("src");
   img.classList.add("post-img");
   if (src?.includes("/uploads/")) {
-    const newPath = "/img/" + src.split("/uploads/")[1];
+    const newPath = "/whims/img/" + src.split("/uploads/")[1];
     img.setAttribute("src", newPath);
   }
 });

@@ -44,7 +44,7 @@ const parser = new XMLParser({
   cdataPropName: "__cdata",
 });
 
-const xmlContent = readFileSync(join(__dirname, "../../export.xml"), "utf-8");
+const xmlContent = readFileSync(join(__dirname, "./export.xml"), "utf-8");
 const result = parser.parse(xmlContent);
 
 const channel = result.rss.channel;
@@ -70,16 +70,16 @@ const posts: Post[] = items
           .filter((cat: Category) => cat.domain === "category")
           .map((cat: Category) => cat.__cdata || cat["#text"] || "")
       : item.category?.domain === "category"
-        ? [item.category.__cdata || item.category["#text"] || ""]
-        : [];
+      ? [item.category.__cdata || item.category["#text"] || ""]
+      : [];
 
     const tags = Array.isArray(item.category)
       ? item.category
           .filter((cat: Category) => cat.domain === "post_tag")
           .map((cat: Category) => cat.__cdata || cat["#text"] || "")
       : item.category?.domain === "post_tag"
-        ? [item.category.__cdata || item.category["#text"] || ""]
-        : [];
+      ? [item.category.__cdata || item.category["#text"] || ""]
+      : [];
 
     const postId =
       typeof item["wp:post_id"] === "string"
