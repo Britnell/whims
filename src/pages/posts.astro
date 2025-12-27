@@ -6,33 +6,41 @@ const allPosts = getPosts();
 ---
 
 <Page>
-  <h1>All Posts</h1>
+  <h1 class="mt-2 mb-6 text-3xl">All Posts</h1>
   <table>
-    <thead
-      class="grid grid-cols-4 gap-x-2 gap-y-1 sticky top-[32px] bg-slate-300"
-    >
-      <tr class="contents text-left">
+    <thead class="postgrid sticky top-8 bg-slate-300">
+      <tr class="contents text-left font-normal">
         <th>Title</th>
         <th>Tags</th>
         <th>Categories</th>
         <th>Date</th>
       </tr>
     </thead>
-    <tbody class="grid grid-cols-4 gap-x-2 gap-y-1 bg-white">
+    <tbody class="postgrid bg-white px-2">
       {
         allPosts.map((post) => (
           <tr class="contents">
             <td>
-              <a class="hover:underline" href={`/post/${post.slug}`}>
-                {post.title}
-              </a>
+              <a
+                class="hover:underline"
+                href={`/post/${post.slug}`}
+                set:html={post.title}
+              />
             </td>
-            <td>{post.tags.join(", ")}</td>
-            <td>{post.categories.join(", ")}</td>
-            <td>{post.date.toDateString()}</td>
+            <td class="text-sm">{post.tags.map((t) => "#" + t).join(" ")}</td>
+            <td class="text-sm">{post.categories.join(", ")}</td>
+            <td class="text-sm text-right">{post.date.toDateString()}</td>
           </tr>
         ))
       }
     </tbody>
   </table>
 </Page>
+<style>
+  .postgrid {
+    display: grid;
+    grid-template-columns: 3fr 2fr 1fr 1fr;
+    column-gap: 0.5rem;
+    row-gap: 0.25rem;
+  }
+</style>

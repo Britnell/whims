@@ -1,6 +1,6 @@
 ---
 import "../styles.css";
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <html lang="en">
@@ -10,17 +10,17 @@ import { ViewTransitions } from "astro:transitions";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>Wonday whims</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="bg-slate-300">
-    <header class="flex px-4 sticky top-0 bg-slate-300">
-      <a href="/" class="text-2xl">Whims wonday</a>
-      <nav class="flex gap-4 ml-auto">
+    <header class="flex px-4 sticky top-0 bg-white z-10">
+      <a href="/" class="text-2xl headings">Whims wonday</a>
+      <nav class="flex gap-4 ml-auto font-semibold px-4">
         <a href="/">Blog</a>
         <a href="/posts">Search</a>
       </nav>
     </header>
-    <div class="px-4">
+    <div class="">
       <slot />
     </div>
   </body>

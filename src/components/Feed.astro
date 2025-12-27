@@ -2,46 +2,46 @@
 import BlogPost from "./FeedPost.astro";
 
 export interface Props {
-    posts: Array<{
-        slug: string;
-        title: string;
-        date: Date;
-        categories: string[];
-        tags: string[];
-        content: string;
-    }>;
-    currentPage: number;
-    totalPages: number;
+  posts: Array<{
+    slug: string;
+    title: string;
+    date: Date;
+    categories: string[];
+    tags: string[];
+    content: string;
+  }>;
+  currentPage: number;
+  totalPages: number;
 }
 
 const { posts, currentPage, totalPages } = Astro.props;
 ---
 
 <main>
-    <div class="grid gap-4 grid-cols-[70ch] justify-center">
-        {posts.map((post) => <BlogPost post={post} />)}
-    </div>
+  <div class="max-w-[70ch] mx-auto justify-center px-4 pt-6">
+    {posts.map((post) => <BlogPost post={post} />)}
+  </div>
 
-    <nav class="sticky bottom-2 mx-auto flex max-w-[780px] gap-3 mt-4 mb-8">
-        {
-            currentPage > 1 && (
-                <a
-                    class=" px-3 py-1  bg-white font-semibold shadow-xl"
-                    href={`/feed/${currentPage - 1}`}
-                >
-                    Previous
-                </a>
-            )
-        }
-        {
-            currentPage < totalPages && (
-                <a
-                    class="ml-auto px-3 py-1  bg-white font-semibold shadow-xl"
-                    href={`/feed/${currentPage + 1}`}
-                >
-                    Next
-                </a>
-            )
-        }
-    </nav>
+  <nav class="sticky bottom-2 mx-auto flex max-w-[780px] gap-3 mt-4 mb-8">
+    {
+      currentPage > 1 && (
+        <a
+          class=" px-3 py-1  bg-white font-semibold shadow-xl"
+          href={`/feed/${currentPage - 1}`}
+        >
+          Previous
+        </a>
+      )
+    }
+    {
+      currentPage < totalPages && (
+        <a
+          class="ml-auto px-3 py-1  bg-white font-semibold shadow-xl"
+          href={`/feed/${currentPage + 1}`}
+        >
+          Next
+        </a>
+      )
+    }
+  </nav>
 </main>

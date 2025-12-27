@@ -1,17 +1,33 @@
 @import "tailwindcss";
 
 body {
-    font-family: system-ui;
+  font-family: system-ui;
 }
 
 .post-img {
-    max-height: 45vh;
-    margin: 0 auto;
-    object-fit: contain;
+  max-height: 45vh;
+  margin: 0 auto;
+  object-fit: contain;
 }
 
 .post-content {
-    & a:not(:has(> *)) {
-        text-decoration: underline;
-    }
+  & a:not(:has(> *)) {
+    text-decoration: underline;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+.headings {
+  font-family: Didot, "Bodoni MT", "Noto Serif Display", "URW Palladio L", P052,
+    Sylfaen, serif;
+
+  font-weight: 900;
+
+  .post-content & {
+    font-family: inherit;
+    font-weight: inherit;
+  }
 }
