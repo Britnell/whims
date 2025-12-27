@@ -44,7 +44,7 @@ const parser = new XMLParser({
   cdataPropName: "__cdata",
 });
 
-const xmlContent = readFileSync(join(__dirname, "./export.xml"), "utf-8");
+const xmlContent = readFileSync(join(__dirname, "../../export.xml"), "utf-8");
 const result = parser.parse(xmlContent);
 
 const channel = result.rss.channel;
