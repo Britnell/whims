@@ -6,14 +6,33 @@ const allPosts = getPosts();
 ---
 
 <Page>
-    <h1>All Posts</h1>
-    <ul>
-        {
-            allPosts.map((post) => (
-                <li>
-                    <a href={`/post/${post.slug}`}>{post.title}</a>
-                </li>
-            ))
-        }
-    </ul>
+  <h1>All Posts</h1>
+  <table>
+    <thead
+      class="grid grid-cols-4 gap-x-2 gap-y-1 sticky top-[32px] bg-slate-300"
+    >
+      <tr class="contents text-left">
+        <th>Title</th>
+        <th>Tags</th>
+        <th>Categories</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody class="grid grid-cols-4 gap-x-2 gap-y-1 bg-white">
+      {
+        allPosts.map((post) => (
+          <tr class="contents">
+            <td>
+              <a class="hover:underline" href={`/post/${post.slug}`}>
+                {post.title}
+              </a>
+            </td>
+            <td>{post.tags.join(", ")}</td>
+            <td>{post.categories.join(", ")}</td>
+            <td>{post.date.toDateString()}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
 </Page>
